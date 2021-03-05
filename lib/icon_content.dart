@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-
-const contentNameTextStyle = TextStyle(
-  fontSize: 18.0,
-  color: Color(0xFF8D8E98),
-);
+import 'package:start_keto/constants.dart';
 
 class IconContent extends StatelessWidget {
   IconContent({@required this.contentName, this.icon});
@@ -25,7 +21,7 @@ class IconContent extends StatelessWidget {
         ),
         Text(
           contentName,
-          style: contentNameTextStyle,
+          style: kContentNameTextStyle,
         )
       ],
     );
