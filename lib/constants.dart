@@ -10,7 +10,7 @@ const kActiveSliderTrackColour = Colors.white;
 const kInactiveSliderTrackColour = Color(0xFF8D8E98);
 const kSliderThumbOverlayColour = Color(0x1FEB1555);
 
-const kBottomContainerHeight = 60.0;
+const kBottomContainerHeight = 65.0;
 const kSliderThumbShape = RoundSliderThumbShape(enabledThumbRadius: 15.0);
 const kSliderThumbOverlayShape = RoundSliderOverlayShape(overlayRadius: 30.0);
 
@@ -23,3 +23,17 @@ const kSliderNumberTextStyle = TextStyle(
   fontSize: 45.0,
   fontWeight: FontWeight.w900,
 );
+
+const kListPickerTextStyle = TextStyle(
+  fontSize: 15.0,
+  fontWeight: FontWeight.w500,
+  color: Colors.white,
+);
+
+const kLargeButtonTextStyle = TextStyle(
+  fontSize: 25.0,
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+);
+
+const kTitleTextStyle = TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold);

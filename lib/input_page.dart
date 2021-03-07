@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:start_keto/icon_content.dart';
 import 'package:start_keto/reusable_card.dart';
 import 'package:start_keto/constants.dart';
+import 'package:start_keto/round_icon_button.dart';
 
 enum Gender {
   male,
@@ -11,6 +12,7 @@ enum Gender {
 }
 
 class InputPage extends StatefulWidget {
+  static const String id = 'input_page';
   @override
   _InputPageState createState() => _InputPageState();
 }
@@ -19,6 +21,8 @@ class _InputPageState extends State<InputPage> {
   Gender selectedGender;
   int height = 180;
   int weight = 60;
+  int age = 18;
+  String dropdownValue = 'DAILY ACTIVITY LEVEL (SELECT HERE)';
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +114,41 @@ class _InputPageState extends State<InputPage> {
                     height: 170.0,
                   ),
                 ),
+                ReusableCard(
+                  colour: kActiveCardColour,
+                  height: 85.0,
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //TODO:Refactor Dropdown Button
+                      DropdownButton<String>(
+                        value: dropdownValue,
+                        icon: Icon(Icons.arrow_drop_down_sharp),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: kListPickerTextStyle,
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'DAILY ACTIVITY LEVEL (SELECT HERE)',
+                          'SEDENTARY (OFFICE JOB)',
+                          'LIGHT EXERCISE (1-2 DAYS/WEEK)',
+                          'MODERATE EXERCISE (3-5 DAYS/WEEK)',
+                          'HEAVY EXERCISE (6-7 DAYS/WEEK)',
+                          'ATHLETE (2X DAY)',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      )
+                    ],
+                  ),
+                ),
                 Row(
                   children: [
                     Expanded(
@@ -131,13 +170,23 @@ class _InputPageState extends State<InputPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 RoundIconButton(
-                                  icon: FontAwesomeIcons.plus,
+                                  icon: FontAwesomeIcons.minus,
+                                  onPress: () {
+                                    setState(() {
+                                      weight--;
+                                    });
+                                  },
                                 ),
                                 SizedBox(
                                   width: 10.0,
                                 ),
                                 RoundIconButton(
-                                  icon: FontAwesomeIcons.minus,
+                                  icon: FontAwesomeIcons.plus,
+                                  onPress: () {
+                                    setState(() {
+                                      weight++;
+                                    });
+                                  },
                                 ),
                               ],
                             ),
@@ -149,46 +198,65 @@ class _InputPageState extends State<InputPage> {
                       child: ReusableCard(
                         colour: kActiveCardColour,
                         height: 170.0,
+                        cardChild: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'AGE',
+                              style: kContentNameTextStyle,
+                            ),
+                            Text(
+                              age.toString(),
+                              style: kSliderNumberTextStyle,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                RoundIconButton(
+                                  icon: FontAwesomeIcons.minus,
+                                  onPress: () {
+                                    setState(() {
+                                      age--;
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                RoundIconButton(
+                                  icon: FontAwesomeIcons.plus,
+                                  onPress: () {
+                                    setState(() {
+                                      age++;
+                                    });
+                                  },
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
-                ),
-                ReusableCard(
-                  colour: kActiveCardColour,
-                  height: 85.0,
                 ),
               ],
             ),
           ),
           Container(
+            child: Center(
+              child: Text(
+                'CALCULATE',
+                style: kLargeButtonTextStyle,
+              ),
+            ),
+            margin: EdgeInsets.only(top: 10.0),
+            padding: EdgeInsets.only(bottom: 20.0),
             color: kBottomContainerColour,
             width: double.infinity,
             height: kBottomContainerHeight,
           ),
         ],
       ),
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({this.icon, this.onPress});
-
-  final IconData icon;
-  final Function onPress;
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(icon),
-      elevation: 6.0,
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-      onPressed: onPress,
     );
   }
 }
