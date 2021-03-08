@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:start_keto/icon_content.dart';
-import 'package:start_keto/reusable_card.dart';
+import 'package:start_keto/components/icon_content.dart';
+import 'package:start_keto/screens/results_page.dart';
+import 'package:start_keto/components/reusable_card.dart';
 import 'package:start_keto/constants.dart';
-import 'package:start_keto/round_icon_button.dart';
+import 'package:start_keto/components/round_icon_button.dart';
+import 'package:start_keto/components/bottom_button.dart';
 
 enum Gender {
   male,
@@ -242,19 +244,11 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            child: Center(
-              child: Text(
-                'CALCULATE',
-                style: kLargeButtonTextStyle,
-              ),
-            ),
-            margin: EdgeInsets.only(top: 10.0),
-            padding: EdgeInsets.only(bottom: 20.0),
-            color: kBottomContainerColour,
-            width: double.infinity,
-            height: kBottomContainerHeight,
-          ),
+          BottomButton(
+              onTap: () {
+                Navigator.pushNamed(context, ResultsPage.id);
+              },
+              buttonTitle: 'CALCULATE'),
         ],
       ),
     );
