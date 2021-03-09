@@ -6,8 +6,10 @@ import 'package:start_keto/components/bottom_button.dart';
 
 class ResultsPage extends StatelessWidget {
   static const String id = 'results_page';
-  int dailyCalories;
-  int weeklyCalories;
+  ResultsPage({this.dailyCalories, this.weeklyCalories});
+  final int dailyCalories;
+  final int weeklyCalories;
+  final String bmrResult;
 
   @override
   Widget build(BuildContext context) {

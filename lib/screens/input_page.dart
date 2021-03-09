@@ -7,6 +7,7 @@ import 'package:start_keto/components/reusable_card.dart';
 import 'package:start_keto/constants.dart';
 import 'package:start_keto/components/round_icon_button.dart';
 import 'package:start_keto/components/bottom_button.dart';
+import 'package:start_keto/calorie_calculation.dart';
 
 enum Gender {
   male,
@@ -246,6 +247,7 @@ class _InputPageState extends State<InputPage> {
           ),
           BottomButton(
               onTap: () {
+                CalorieCalculator(height: height, weight: weight, age: age);
                 Navigator.pushNamed(context, ResultsPage.id);
               },
               buttonTitle: 'CALCULATE'),
