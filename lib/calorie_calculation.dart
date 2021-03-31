@@ -5,8 +5,10 @@ class CalorieCalculator {
   final int weight;
   final int age;
 
+  double _bmr;
+
   String calculateBMR() {
-    double bmr = 66.5 + (13.75 * weight) + (5.003 * height) - (6.755 * age);
-    return bmr.toStringAsFixed(1);
+    _bmr = 66.5 + (13.75 * weight) + (5.003 * height) - (6.755 * age);
+    return _bmr.toStringAsFixed(1);
   }
 }

@@ -247,8 +247,14 @@ class _InputPageState extends State<InputPage> {
           ),
           BottomButton(
               onTap: () {
-                CalorieCalculator(height: height, weight: weight, age: age);
-                Navigator.pushNamed(context, ResultsPage.id);
+                CalorieCalculator calc =
+                    CalorieCalculator(height: height, weight: weight, age: age);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultsPage(
+                              bmrResult: calc.calculateBMR(),
+                            )));
               },
               buttonTitle: 'CALCULATE'),
         ],

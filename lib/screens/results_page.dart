@@ -6,7 +6,7 @@ import 'package:start_keto/components/bottom_button.dart';
 
 class ResultsPage extends StatelessWidget {
   static const String id = 'results_page';
-  ResultsPage({this.dailyCalories, this.weeklyCalories});
+  ResultsPage({this.dailyCalories, this.weeklyCalories, this.bmrResult});
   final int dailyCalories;
   final int weeklyCalories;
   final String bmrResult;
@@ -39,7 +39,7 @@ class ResultsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    dailyCalories.toString(),
+                    bmrResult,
                     style: kCaloriesTextStyle,
                   ),
                   Text(
