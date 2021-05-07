@@ -45,3 +45,12 @@ const kCaloriesTextStyle = TextStyle(
   fontSize: 100.0,
   fontWeight: FontWeight.bold,
 );
+
+const Map<String, double> kDailyActivityLevelOptions = {
+  'DAILY ACTIVITY LEVEL (SELECT HERE)': 0.0,
+  'SEDENTARY (OFFICE JOB)': 1.2,
+  'LIGHT EXERCISE (1-2 DAYS/WEEK)': 1.375,
+  'MODERATE EXERCISE (3-5 DAYS/WEEK)': 1.55,
+  'HEAVY EXERCISE (6-7 DAYS/WEEK)': 1.725,
+  'ATHLETE (2X DAY)': 1.9,
+};

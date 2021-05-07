@@ -26,6 +26,7 @@ class _InputPageState extends State<InputPage> {
   int weight = 60;
   int age = 18;
   String dropdownValue = 'DAILY ACTIVITY LEVEL (SELECT HERE)';
+  double dailyActivityLevelValue = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -124,31 +125,29 @@ class _InputPageState extends State<InputPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       //TODO:Refactor Dropdown Button
-                      DropdownButton<String>(
-                        value: dropdownValue,
+                      DropdownButton<double>(
                         icon: Icon(Icons.arrow_drop_down_sharp),
                         iconSize: 24,
                         elevation: 16,
                         style: kListPickerTextStyle,
-                        onChanged: (String newValue) {
+                        items: kDailyActivityLevelOptions
+                            .map((description, value) {
+                              return MapEntry(
+                                  description,
+                                  DropdownMenuItem<double>(
+                                    value: value,
+                                    child: Text(description),
+                                  ));
+                            })
+                            .values
+                            .toList(),
+                        value: dailyActivityLevelValue,
+                        onChanged: (newValue) {
                           setState(() {
-                            dropdownValue = newValue;
+                            dailyActivityLevelValue = newValue;
                           });
                         },
-                        items: <String>[
-                          'DAILY ACTIVITY LEVEL (SELECT HERE)',
-                          'SEDENTARY (OFFICE JOB)',
-                          'LIGHT EXERCISE (1-2 DAYS/WEEK)',
-                          'MODERATE EXERCISE (3-5 DAYS/WEEK)',
-                          'HEAVY EXERCISE (6-7 DAYS/WEEK)',
-                          'ATHLETE (2X DAY)',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -247,13 +246,18 @@ class _InputPageState extends State<InputPage> {
           ),
           BottomButton(
               onTap: () {
-                CalorieCalculator calc =
-                    CalorieCalculator(height: height, weight: weight, age: age);
+                CalorieCalculator calc = CalorieCalculator(
+                    height: height,
+                    weight: weight,
+                    age: age,
+                    activityValue: dailyActivityLevelValue);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => ResultsPage(
                               bmrResult: calc.calculateBMR(),
+                              tdeeResult: calc.calculateTDEE(),
+                              weeklyTDEEResult: calc.calculateWeeklyTDEE(),
                             )));
               },
               buttonTitle: 'CALCULATE'),

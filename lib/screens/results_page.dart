@@ -6,10 +6,11 @@ import 'package:start_keto/components/bottom_button.dart';
 
 class ResultsPage extends StatelessWidget {
   static const String id = 'results_page';
-  ResultsPage({this.dailyCalories, this.weeklyCalories, this.bmrResult});
-  final int dailyCalories;
-  final int weeklyCalories;
+  ResultsPage({this.bmrResult, this.tdeeResult, this.weeklyTDEEResult});
+
   final String bmrResult;
+  final String tdeeResult;
+  final String weeklyTDEEResult;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class ResultsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    bmrResult,
+                    tdeeResult,
                     style: kCaloriesTextStyle,
                   ),
                   Text(
@@ -50,7 +51,8 @@ class ResultsPage extends StatelessWidget {
                     thickness: 5.0,
                   ),
                   Text(
-                    weeklyCalories.toString(),
+                    // weeklyCalories.toString(),
+                    weeklyTDEEResult,
                     style: kCaloriesTextStyle,
                   ),
                   Text(
