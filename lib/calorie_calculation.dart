@@ -1,18 +1,23 @@
+import 'package:start_keto/screens/input_page.dart';
+
 class CalorieCalculator {
-  CalorieCalculator({this.height, this.weight, this.age, this.activityValue});
+  CalorieCalculator(
+      {this.height, this.weight, this.age, this.activityValue, this.gender});
 
   final int height;
   final int weight;
   final int age;
   final double activityValue;
+  final Gender gender;
 
   double _bmr;
   double _tdee;
   double _weeklyTDEE;
 
-  //TODO:Add Gender to Calculations
   String calculateBMR() {
-    _bmr = 66.5 + (13.75 * weight) + (5.003 * height) - (6.755 * age);
+    gender == Gender.male
+        ? _bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5
+        : _bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
     return _bmr.toStringAsFixed(0);
   }
 

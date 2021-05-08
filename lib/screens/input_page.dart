@@ -247,10 +247,12 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
               onTap: () {
                 CalorieCalculator calc = CalorieCalculator(
-                    height: height,
-                    weight: weight,
-                    age: age,
-                    activityValue: dailyActivityLevelValue);
+                  height: height,
+                  weight: weight,
+                  age: age,
+                  activityValue: dailyActivityLevelValue,
+                  gender: selectedGender,
+                );
                 Navigator.push(
                     context,
                     MaterialPageRoute(
