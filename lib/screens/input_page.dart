@@ -28,6 +28,36 @@ class _InputPageState extends State<InputPage> {
   String dropdownValue = 'DAILY ACTIVITY LEVEL (SELECT HERE)';
   double dailyActivityLevelValue = 0.0;
 
+  //TODO: Create Gender alert
+  //TODO: Create Cupertino alerts
+  //TODO: Refactor alert
+  Future<void> dailyActivityAlert() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Information Missing'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text('Please Select Your Daily Activity Level'),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -253,14 +283,18 @@ class _InputPageState extends State<InputPage> {
                   activityValue: dailyActivityLevelValue,
                   gender: selectedGender,
                 );
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ResultsPage(
-                              bmrResult: calc.calculateBMR(),
-                              tdeeResult: calc.calculateTDEE(),
-                              weeklyTDEEResult: calc.calculateWeeklyTDEE(),
-                            )));
+                if (dailyActivityLevelValue == 0.0) {
+                  dailyActivityAlert();
+                } else {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ResultsPage(
+                                bmrResult: calc.calculateBMR(),
+                                tdeeResult: calc.calculateTDEE(),
+                                weeklyTDEEResult: calc.calculateWeeklyTDEE(),
+                              )));
+                }
               },
               buttonTitle: 'CALCULATE'),
         ],
