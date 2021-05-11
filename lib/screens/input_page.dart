@@ -31,6 +31,7 @@ class _InputPageState extends State<InputPage> {
   //TODO: Create Gender alert
   //TODO: Create Cupertino alerts
   //TODO: Refactor alert
+  //Alert to inform the user that they haven't selected their daily activity level
   Future<void> dailyActivityAlert() async {
     return showDialog(
       context: context,
