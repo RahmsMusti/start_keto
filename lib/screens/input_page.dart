@@ -1,3 +1,4 @@
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +9,7 @@ import 'package:start_keto/constants.dart';
 import 'package:start_keto/components/round_icon_button.dart';
 import 'package:start_keto/components/bottom_button.dart';
 import 'package:start_keto/calorie_calculation.dart';
+import 'package:start_keto/ad_helper.dart';
 
 enum Gender {
   male,
@@ -21,18 +23,18 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  // TODO: Add _interstitialAd
-  late InterstitialAd _interstitialAd;
-
-  // TODO: Add _isInterstitialAdReady
-  bool _isInterstitialAdReady = false;
-
   Gender selectedGender;
   int height = 180;
   int weight = 60;
   int age = 18;
   String dropdownValue = 'DAILY ACTIVITY LEVEL (SELECT HERE)';
   double dailyActivityLevelValue = 0.0;
+
+  // TODO: Add _interstitialAd
+  InterstitialAd interstitialAdScript;
+
+  // TODO: Add _isInterstitialAdReady
+  bool isInterstitialAdReady = false;
 
   //TODO: Create Gender alert
   //TODO: Create Cupertino alerts
@@ -67,21 +69,22 @@ class _InputPageState extends State<InputPage> {
 
   @override
   void initState() {
+    super.initState();
     // TODO: Initialize _interstitialAd
-    _interstitialAd = InterstitialAd(
+    interstitialAdScript = InterstitialAd(
       adUnitId: AdHelper.interstitialAdUnitId,
       request: AdRequest(),
-      listener: AdListener(
+      listener: NativeAdListener(
         onAdLoaded: (_) {
-          _isInterstitialAdReady = true;
+          isInterstitialAdReady = true;
         },
         onAdFailedToLoad: (ad, err) {
           print('Failed to load an interstitial ad: ${err.message}');
-          _isInterstitialAdReady = false;
+          isInterstitialAdReady = false;
           ad.dispose();
         },
         onAdClosed: (_) {
-          _moveToHome();
+          ResultsPage();
         },
       ),
     );
@@ -304,6 +307,7 @@ class _InputPageState extends State<InputPage> {
           ),
           BottomButton(
               onTap: () {
+                interstitialAdScript.show();
                 CalorieCalculator calc = CalorieCalculator(
                   height: height,
                   weight: weight,
@@ -328,5 +332,17 @@ class _InputPageState extends State<InputPage> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: Dispose an InterstitialAd object
+    interstitialAdScript.dispose();
+    super.dispose();
+  }
+
+  Future<InitializationStatus> initGoogleMobileAds() {
+    // TODO: Initialize Google Mobile Ads SDK
+    return MobileAds.instance.initialize();
   }
 }
