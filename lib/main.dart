@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:start_keto/constants.dart';
 import 'package:start_keto/screens/input_page.dart';
 import 'package:start_keto/screens/results_page.dart';
