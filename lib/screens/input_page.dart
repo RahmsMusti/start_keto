@@ -8,6 +8,7 @@ import 'package:start_keto/constants.dart';
 import 'package:start_keto/components/round_icon_button.dart';
 import 'package:start_keto/components/bottom_button.dart';
 import 'package:start_keto/calorie_calculation.dart';
+import 'dart:io' show Platform;
 
 enum Gender {
   male,
@@ -21,18 +22,117 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Gender selectedGender;
+  Gender? selectedGender;
   int height = 180;
   int weight = 60;
   int age = 18;
   String dropdownValue = 'DAILY ACTIVITY LEVEL (SELECT HERE)';
-  double dailyActivityLevelValue = 0.0;
+  double? dailyActivityLevelValue = 0.0;
 
   //TODO: Create Gender alert
-  //TODO: Create Cupertino alerts
+  Future<void> iosSelectedGenderAlert() async {
+    return showCupertinoDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(
+            'Information Missing',
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                ),
+                Text(
+                  'Please Select Your Gender',
+                ),
+              ],
+            ),
+          ),
+          actions: <CupertinoDialogAction>[
+            CupertinoDialogAction(
+              child: Text(
+                'OK',
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> androidSelectedGenderAlert() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Information Missing'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text('Please Select Your Gendar'),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  //TODO: Refactor Cupertino alert
+  Future<void> iosDailyActivityAlert() async {
+    return showCupertinoDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(
+            'Information Missing',
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                ),
+                Text(
+                  'Please Select Your Daily Activity Level',
+                ),
+              ],
+            ),
+          ),
+          actions: <CupertinoDialogAction>[
+            CupertinoDialogAction(
+              child: Text(
+                'OK',
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   //TODO: Refactor alert
   //Alert to inform the user that they haven't selected their daily activity level
-  Future<void> dailyActivityAlert() async {
+  Future<void> androidDailyActivityAlert() async {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -285,7 +385,13 @@ class _InputPageState extends State<InputPage> {
                   gender: selectedGender,
                 );
                 if (dailyActivityLevelValue == 0.0) {
-                  dailyActivityAlert();
+                  Platform.isIOS
+                      ? iosDailyActivityAlert()
+                      : androidDailyActivityAlert();
+                } else if (selectedGender == null) {
+                  Platform.isIOS
+                      ? iosSelectedGenderAlert()
+                      : androidSelectedGenderAlert();
                 } else {
                   Navigator.push(
                       context,

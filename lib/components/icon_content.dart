@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:start_keto/constants.dart';
 
 class IconContent extends StatelessWidget {
-  IconContent({@required this.contentName, this.icon});
+  IconContent({required this.contentName, this.icon});
 
   final String contentName;
-  final IconData icon;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {

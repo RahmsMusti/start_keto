@@ -8,9 +8,9 @@ class ResultsPage extends StatelessWidget {
   static const String id = 'results_page';
   ResultsPage({this.bmrResult, this.tdeeResult, this.weeklyTDEEResult});
 
-  final String bmrResult;
-  final String tdeeResult;
-  final String weeklyTDEEResult;
+  final String? bmrResult;
+  final String? tdeeResult;
+  final String? weeklyTDEEResult;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class ResultsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    tdeeResult,
+                    tdeeResult!,
                     style: kCaloriesTextStyle,
                   ),
                   Text(
@@ -52,7 +52,7 @@ class ResultsPage extends StatelessWidget {
                   ),
                   Text(
                     // weeklyCalories.toString(),
-                    weeklyTDEEResult,
+                    weeklyTDEEResult!,
                     style: kCaloriesTextStyle,
                   ),
                   Text(

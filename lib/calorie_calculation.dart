@@ -4,25 +4,25 @@ class CalorieCalculator {
   CalorieCalculator(
       {this.height, this.weight, this.age, this.activityValue, this.gender});
 
-  final int height;
-  final int weight;
-  final int age;
-  final double activityValue;
-  final Gender gender;
+  final int? height;
+  final int? weight;
+  final int? age;
+  final double? activityValue;
+  final Gender? gender;
 
-  double _bmr;
-  double _tdee;
-  double _weeklyTDEE;
+  late double _bmr;
+  late double _tdee;
+  late double _weeklyTDEE;
 
   String calculateBMR() {
     gender == Gender.male
-        ? _bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5
-        : _bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+        ? _bmr = (10 * weight!) + (6.25 * height!) - (5 * age!) + 5
+        : _bmr = (10 * weight!) + (6.25 * height!) - (5 * age!) - 161;
     return _bmr.toStringAsFixed(0);
   }
 
   String calculateTDEE() {
-    _tdee = _bmr * activityValue;
+    _tdee = _bmr * activityValue!;
     return _tdee.toStringAsFixed(0);
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RoundIconButton extends StatelessWidget {
-  RoundIconButton({@required this.icon, @required this.onPress});
+  RoundIconButton({required this.icon, required this.onPress});
 
   final IconData icon;
   final Function onPress;
@@ -17,7 +17,7 @@ class RoundIconButton extends StatelessWidget {
       ),
       shape: CircleBorder(),
       fillColor: Color(0xFF4C4F5E),
-      onPressed: onPress,
+      onPressed: onPress as void Function()?,
     );
   }
 }
