@@ -8,8 +8,6 @@ import 'package:start_keto/constants.dart';
 import 'package:start_keto/components/round_icon_button.dart';
 import 'package:start_keto/components/bottom_button.dart';
 import 'package:start_keto/calorie_calculation.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:start_keto/ad_helper.dart';
 import 'dart:io' show Platform;
 
 enum Gender {
@@ -24,42 +22,6 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Future<InitializationStatus> _initGoogleMobileAds() {
-    // TODO: Initialize Google Mobile Ads SDK
-    return MobileAds.instance.initialize();
-  }
-
-  // TODO: Add _interstitialAd
-  InterstitialAd? _interstitialAd;
-
-  // TODO: Add _isInterstitialAdReady
-  bool _isInterstitialAdReady = false;
-
-  // TODO: Implement _loadInterstitialAd()
-  void _loadInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: AdHelper.interstitialAdUnitId,
-      request: AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          this._interstitialAd = ad;
-
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-            onAdDismissedFullScreenContent: (ad) {
-              _InputPageState();
-            },
-          );
-
-          _isInterstitialAdReady = true;
-        },
-        onAdFailedToLoad: (err) {
-          print('Failed to load an interstitial ad: ${err.message}');
-          _isInterstitialAdReady = false;
-        },
-      ),
-    );
-  }
-
   Gender? selectedGender;
   int height = 180;
   int weight = 60;
@@ -67,7 +29,7 @@ class _InputPageState extends State<InputPage> {
   String dropdownValue = 'DAILY ACTIVITY LEVEL (SELECT HERE)';
   double? dailyActivityLevelValue = 0.0;
 
-  //TODO: Refactor Gender alert
+  //TODO: Create Gender alert
   Future<void> iosSelectedGenderAlert() async {
     return showCupertinoDialog(
       context: context,
@@ -422,16 +384,14 @@ class _InputPageState extends State<InputPage> {
                   activityValue: dailyActivityLevelValue,
                   gender: selectedGender,
                 );
-                if (selectedGender == null) {
-                  Platform.isIOS
-                      ? iosSelectedGenderAlert()
-                      : androidSelectedGenderAlert();
-                } else if (dailyActivityLevelValue == 0.0) {
+                if (dailyActivityLevelValue == 0.0) {
                   Platform.isIOS
                       ? iosDailyActivityAlert()
                       : androidDailyActivityAlert();
-                } else if (_isInterstitialAdReady) {
-                  _interstitialAd?.show();
+                } else if (selectedGender == null) {
+                  Platform.isIOS
+                      ? iosSelectedGenderAlert()
+                      : androidSelectedGenderAlert();
                 } else {
                   Navigator.push(
                       context,
