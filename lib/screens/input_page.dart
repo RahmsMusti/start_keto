@@ -384,14 +384,14 @@ class _InputPageState extends State<InputPage> {
                   activityValue: dailyActivityLevelValue,
                   gender: selectedGender,
                 );
-                if (dailyActivityLevelValue == 0.0) {
-                  Platform.isIOS
-                      ? iosDailyActivityAlert()
-                      : androidDailyActivityAlert();
-                } else if (selectedGender == null) {
+                if (selectedGender == null) {
                   Platform.isIOS
                       ? iosSelectedGenderAlert()
                       : androidSelectedGenderAlert();
+                } else if (dailyActivityLevelValue == 0.0) {
+                  Platform.isIOS
+                      ? iosDailyActivityAlert()
+                      : androidDailyActivityAlert();
                 } else {
                   Navigator.push(
                       context,
