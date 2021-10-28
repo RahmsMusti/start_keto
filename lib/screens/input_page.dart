@@ -427,15 +427,16 @@ class _InputPageState extends State<InputPage> {
                       : androidDailyActivityAlert();
                 } else if (_isInterstitialAdReady) {
                   _interstitialAd?.show();
-                } else {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ResultsPage(
-                                bmrResult: calc.calculateBMR(),
-                                tdeeResult: calc.calculateTDEE(),
-                                weeklyTDEEResult: calc.calculateWeeklyTDEE(),
-                              )));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ResultsPage(
+                        bmrResult: calc.calculateBMR(),
+                        tdeeResult: calc.calculateTDEE(),
+                        weeklyTDEEResult: calc.calculateWeeklyTDEE(),
+                      ),
+                    ),
+                  );
                 }
               },
               buttonTitle: 'CALCULATE'),
@@ -448,7 +449,6 @@ class _InputPageState extends State<InputPage> {
   void dispose() {
     // TODO: Dispose an InterstitialAd object
     _interstitialAd?.dispose();
-
     super.dispose();
   }
 }
