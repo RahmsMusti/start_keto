@@ -384,6 +384,7 @@ class _InputPageState extends State<InputPage> {
                   activityValue: dailyActivityLevelValue,
                   gender: selectedGender,
                 );
+                _loadInterstitialAd();
                 if (selectedGender == null) {
                   Platform.isIOS
                       ? iosSelectedGenderAlert()
