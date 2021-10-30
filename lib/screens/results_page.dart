@@ -14,62 +14,75 @@ class ResultsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Your Result'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(15.0),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                'Your Weight Loss Calories',
-                style: kTitleTextStyle,
-              ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [Tab(text: 'Results'), Tab(text: 'Macros')],
+          ),
+          title: Text('Your Result'),
+        ),
+        body: TabBarView(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(15.0),
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      'Your Weight Loss Calories',
+                      style: kTitleTextStyle,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: ReusableCard(
+                    colour: kActiveCardColour,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          tdeeResult!,
+                          style: kCaloriesTextStyle,
+                        ),
+                        Text(
+                          'calories per day',
+                          style: kContentNameTextStyle,
+                        ),
+                        Divider(
+                          thickness: 5.0,
+                          indent: 10.0,
+                          endIndent: 10.0,
+                        ),
+                        Text(
+                          // weeklyCalories.toString(),
+                          weeklyTDEEResult!,
+                          style: kCaloriesTextStyle,
+                        ),
+                        Text(
+                          'calories per week',
+                          style: kContentNameTextStyle,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                BottomButton(
+                  onTap: () {
+                    Navigator.pop(context, InputPage.id);
+                  },
+                  buttonTitle: 'RECALCULATE',
+                ),
+              ],
             ),
-          ),
-          Expanded(
-            flex: 7,
-            child: ReusableCard(
-              colour: kActiveCardColour,
-              cardChild: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    tdeeResult!,
-                    style: kCaloriesTextStyle,
-                  ),
-                  Text(
-                    'calories per day',
-                    style: kContentNameTextStyle,
-                  ),
-                  Divider(
-                    thickness: 5.0,
-                  ),
-                  Text(
-                    // weeklyCalories.toString(),
-                    weeklyTDEEResult!,
-                    style: kCaloriesTextStyle,
-                  ),
-                  Text(
-                    'calories per week',
-                    style: kContentNameTextStyle,
-                  )
-                ],
-              ),
-            ),
-          ),
-          BottomButton(
-            onTap: () {
-              Navigator.pop(context, InputPage.id);
-            },
-            buttonTitle: 'RECALCULATE',
-          ),
-        ],
+            Icon(Icons.circle_notifications),
+          ],
+        ),
       ),
     );
   }

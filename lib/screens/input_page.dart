@@ -327,9 +327,20 @@ class _InputPageState extends State<InputPage> {
                               'WEIGHT',
                               style: kContentNameTextStyle,
                             ),
-                            Text(
-                              weight.toString(),
-                              style: kSliderNumberTextStyle,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: [
+                                Text(
+                                  weight.toString(),
+                                  style: kSliderNumberTextStyle,
+                                ),
+                                Text(
+                                  'kg',
+                                  style: kContentNameTextStyle,
+                                )
+                              ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
