@@ -10,14 +10,19 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.3
+  fl_chart: ^0.40.2
   flutter:
     sdk: flutter
   font_awesome_flutter: ^9.2.0
   google_mobile_ads: ^0.13.5
+  
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  lints: ^1.0.1
+  
 
 flutter:
   uses-material-design: true

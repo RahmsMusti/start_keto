@@ -80,7 +80,17 @@ class ResultsPage extends StatelessWidget {
                 ),
               ],
             ),
-            Icon(Icons.circle_notifications),
+            Column(
+              children: [
+                Expanded(child: Icon(Icons.circle_notifications)),
+                BottomButton(
+                  onTap: () {
+                    Navigator.pop(context, InputPage.id);
+                  },
+                  buttonTitle: 'RECALCULATE',
+                ),
+              ],
+            ),
           ],
         ),
       ),
